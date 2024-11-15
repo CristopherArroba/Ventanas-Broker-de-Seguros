@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+
+header {
+    background-color: #2c3e50;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: #007bff;
+}
+
+.ticket-details, .ticket-thread {
+    border: 1px solid #ddd;
+}
+
+.ticket-details h2, .ticket-thread h3 {
+    color: #2c3e50;
+}
+
+.ticket-details p, .ticket-thread p {
+    color: #333;
+}
+
+.badge-danger {
+    background-color: #e74c3c;
+}
+
+.message {
+    border: 1px solid #ddd;
+}
+
+.message p {
+    margin-bottom: 0;
+}
+
+a.text-primary {
+    text-decoration: none;
+}
+
+a.text-primary:hover {
+    text-decoration: underline;
+}
