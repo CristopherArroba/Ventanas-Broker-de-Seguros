@@ -23,12 +23,27 @@ header {
     background-color: #eaeaea;
 }
 
-.table .badge-danger {
-    background-color: #e74c3c;
+.table .badge-alto {
+    background-color: #e74c3c; /* Rojo */
     color: #fff;
     padding: 5px 10px;
     border-radius: 5px;
 }
+
+.table .badge-medio {
+    background-color: #f39c12; /* Amarillo */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.table .badge-bajo {
+    background-color: #2ecc71; /* Verde */
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
 
 .nav-link {
     color: #2c3e50;
