@@ -36,6 +36,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Estado:</strong> Abierto</p>
+                    <!-- Nueva sección para cambiar el estado -->
+                    <div class="form-group">
+                        <label for="ticket-status"><strong>Cambiar Estado:</strong></label>
+                        <select id="ticket-status" class="form-control">
+                            <option value="esperando-cliente">Esperando cliente</option>
+                            <option value="por-responder">Por responder</option>
+                        </select>
+                    </div>
+                    <button id="save-status" class="btn btn-success mt-3">Guardar</button>
                     <p><strong>Prioridad:</strong> <span class="badge badge-danger">High</span></p>
                     <p><strong>Departamento:</strong> Reembolsos</p>
                     <p><strong>Creado en:</strong> 30/09/24 15:01</p>
@@ -73,5 +82,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Script para manejar el cambio de estado (simulación) -->
+    <script>
+        document.getElementById('save-status').addEventListener('click', function() {
+            var newStatus = document.getElementById('ticket-status').value;
+            alert('Estado actualizado a: ' + newStatus);
+        });
+    </script>
 </body>
 </html>

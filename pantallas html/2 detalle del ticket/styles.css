@@ -47,3 +47,35 @@ a.text-primary {
 a.text-primary:hover {
     text-decoration: underline;
 }
+
+/* Estilos para la sección de cambiar el estado del ticket */
+.form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+#ticket-status {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+#ticket-status option {
+    padding: 10px;
+}
+
+/* Estilos para el botón de guardar */
+#save-status {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#save-status:hover {
+    background-color: #218838;
+}
