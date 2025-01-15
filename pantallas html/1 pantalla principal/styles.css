@@ -44,7 +44,6 @@ header {
     border-radius: 5px;
 }
 
-
 .nav-link {
     color: #2c3e50;
     padding: 10px 15px;
@@ -53,4 +52,15 @@ header {
 .nav-link:hover, .nav-link.active {
     background-color: #eaeaea;
     border-radius: 5px;
+}
+
+/* Estilos específicos para los tickets con estado "por responder" */
+.table tbody tr.por-responder {
+    background-color: #f8d7da; /* Color de fondo suave para destacarlos */
+    font-weight: bold; /* Resaltar el texto */
+    color: #721c24; /* Color de texto más oscuro para mejor contraste */
+}
+
+.table tbody tr.por-responder td {
+    border: 2px solid #f5c6cb; /* Borde alrededor de las celdas */
 }
