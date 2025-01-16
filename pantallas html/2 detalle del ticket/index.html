@@ -42,6 +42,7 @@
                         <select id="ticket-status" class="form-control">
                             <option value="esperando-cliente">Esperando cliente</option>
                             <option value="por-responder">Por responder</option>
+                            <option value="cerrado">Cerrado</option> <!-- Nuevo estado -->
                         </select>
                     </div>
                     <button id="save-status" class="btn btn-success mt-3">Guardar</button>
@@ -87,7 +88,11 @@
     <script>
         document.getElementById('save-status').addEventListener('click', function() {
             var newStatus = document.getElementById('ticket-status').value;
-            alert('Estado actualizado a: ' + newStatus);
+            if (newStatus === 'cerrado') {
+                alert('El ticket ha sido cerrado.');
+            } else {
+                alert('Estado actualizado a: ' + newStatus);
+            }
         });
     </script>
 </body>

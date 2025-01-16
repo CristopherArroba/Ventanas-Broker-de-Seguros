@@ -79,3 +79,8 @@ a.text-primary:hover {
 #save-status:hover {
     background-color: #218838;
 }
+
+/* Estilos para el nuevo estado "Cerrado" */
+#ticket-status option[value="cerrado"] {
+    color: #28a745; /* Verde para indicar que está cerrado */
+}
