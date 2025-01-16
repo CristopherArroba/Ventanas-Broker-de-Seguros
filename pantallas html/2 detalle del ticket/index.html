@@ -36,13 +36,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <p><strong>Estado:</strong> Abierto</p>
-                    <!-- Nueva sección para cambiar el estado -->
                     <div class="form-group">
                         <label for="ticket-status"><strong>Cambiar Estado:</strong></label>
                         <select id="ticket-status" class="form-control">
                             <option value="esperando-cliente">Esperando cliente</option>
                             <option value="por-responder">Por responder</option>
-                            <option value="cerrado">Cerrado</option> <!-- Nuevo estado -->
+                            <option value="cerrado">Cerrado</option>
                         </select>
                     </div>
                     <button id="save-status" class="btn btn-success mt-3">Guardar</button>
@@ -56,35 +55,44 @@
                     <p><strong>Fuente:</strong> Correo electrónico</p>
                 </div>
             </div>
-            
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <p><strong>Asignado a:</strong> No asignado</p>
-                    <p><strong>Plan SLA:</strong> Atención en 168 Horas (7 días)</p>
-                    <p><strong>Fecha de Vencimiento:</strong> 09/10/24 15:02</p>
-                </div>
-                <div class="col-md-6">
-                    <p><strong>Temas de ayuda:</strong> Reembolsos</p>
-                    <p><strong>Último mensaje:</strong> 30/09/24 15:01</p>
-                    <p><strong>Última respuesta:</strong></p>
-                </div>
-            </div>
         </div>
         
         <div class="ticket-thread my-4 p-4 bg-white rounded shadow-sm">
             <h3 class="h6"><i class="fas fa-comments"></i> Hilo del Ticket</h3>
-            <div class="message bg-light p-3 rounded mb-3">
-                <div class="d-flex align-items-center mb-2">
-                    <strong class="mr-2">dchavez</strong> 
-                    <span class="text-muted">publicado 30/09/24 15:01</span>
+            <div id="message-thread">
+                <div class="message bg-light p-3 rounded mb-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <strong class="mr-2">dchavez</strong>
+                        <span class="text-muted">publicado 30/09/24 15:01</span>
+                    </div>
+                    <p>Buenos días<br>Estimada Karla<br><br>Espero te encuentres muy bien, envío los documentos para el reembolso.<br><br>Espero tu ágil gestión<br><br>Saludos cordiales<br>Diana Chavez</p>
+                    <a href="#" class="d-block mt-2 text-primary"><i class="fas fa-file-download"></i> reembolso de Diego Cumbal.pdf (614.3 KB)</a>
                 </div>
-                <p>Buenos días<br>Estimada Karla<br><br>Espero te encuentres muy bien, envío los documentos para el reembolso.<br><br>Espero tu ágil gestión<br><br>Saludos cordiales<br>Diana Chavez</p>
-                <a href="#" class="d-block mt-2 text-primary"><i class="fas fa-file-download"></i> reembolso de Diego Cumbal.pdf (614.3 KB)</a>
             </div>
+        </div>
+
+        <!-- Sección para responder al hilo -->
+        <div class="ticket-response my-4 p-4 bg-white rounded shadow-sm">
+            <h3 class="h6"><i class="fas fa-reply"></i> Responder al Hilo</h3>
+            <div class="form-group">
+                <label for="message-content"><strong>Escribe tu mensaje:</strong></label>
+                <textarea id="message-content" class="form-control" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="file-upload" class="d-block"><strong>Subir Documento:</strong></label>
+                <input type="file" id="file-upload" class="form-control-file">
+            </div>
+            <button id="submit-response" class="btn btn-primary mt-3">Responder</button>
+        </div>
+
+        <!-- Botón para descargar la documentación -->
+        <div class="download-doc my-4 p-4 bg-white rounded shadow-sm text-center">
+            <button id="download-doc" class="btn btn-warning">Descargar Documentación</button>
+            <p id="download-message" class="mt-3 text-muted" style="display: none;">El PDF ha sido descargado.</p>
         </div>
     </div>
 
-    <!-- Script para manejar el cambio de estado (simulación) -->
+    <!-- Script para manejar el cambio de estado, respuesta y la descarga -->
     <script>
         document.getElementById('save-status').addEventListener('click', function() {
             var newStatus = document.getElementById('ticket-status').value;
@@ -93,6 +101,57 @@
             } else {
                 alert('Estado actualizado a: ' + newStatus);
             }
+        });
+
+        // Función para agregar un nuevo mensaje al hilo
+        document.getElementById('submit-response').addEventListener('click', function() {
+            var messageContent = document.getElementById('message-content').value;
+            var fileUpload = document.getElementById('file-upload').files[0]; // Obtener el archivo subido
+
+            if (messageContent.trim() === '' && !fileUpload) {
+                alert('Por favor, escribe un mensaje o sube un archivo antes de responder.');
+                return;
+            }
+
+            // Crear un nuevo mensaje
+            var newMessage = document.createElement('div');
+            newMessage.classList.add('message', 'bg-light', 'p-3', 'rounded', 'mb-3');
+
+            // Agregar contenido al nuevo mensaje
+            var messageHTML = `
+                <div class="d-flex align-items-center mb-2">
+                    <strong class="mr-2">Karla</strong>
+                    <span class="text-muted">publicado ahora</span>
+                </div>
+                <p>${messageContent}</p>
+            `;
+
+            // Si se ha subido un archivo, agregar un enlace para la descarga
+            if (fileUpload) {
+                var fileLink = document.createElement('a');
+                fileLink.href = URL.createObjectURL(fileUpload);
+                fileLink.download = fileUpload.name;
+                fileLink.classList.add('d-block', 'mt-2', 'text-primary');
+                fileLink.innerHTML = `<i class="fas fa-file-download"></i> ${fileUpload.name} (${(fileUpload.size / 1024).toFixed(2)} KB)`;
+                messageHTML += fileLink.outerHTML;
+            }
+
+            newMessage.innerHTML = messageHTML;
+
+            // Agregar el nuevo mensaje al hilo
+            document.getElementById('message-thread').appendChild(newMessage);
+
+            // Limpiar el campo de texto y archivo
+            document.getElementById('message-content').value = '';
+            document.getElementById('file-upload').value = ''; // Limpiar el archivo seleccionado
+        });
+
+        // Simulación de descarga de archivo
+        document.getElementById('download-doc').addEventListener('click', function() {
+            document.getElementById('download-message').style.display = 'block';
+            setTimeout(function() {
+                alert('El PDF ha sido descargado.');
+            }, 500);
         });
     </script>
 </body>
