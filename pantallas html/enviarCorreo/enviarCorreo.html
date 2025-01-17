@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Correo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white d-flex align-items-center">
+                <i class="fas fa-envelope mr-2"></i>
+                <h5 class="mb-0">Nuevo Correo</h5>
+                <button class="btn btn-outline-light ml-auto"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="card-body p-4">
+                <form>
+                    <!-- Campo Para -->
+                    <div class="form-group row">
+                        <label for="emailPara" class="col-sm-2 col-form-label font-weight-bold">Para</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="emailPara" placeholder="cliente@ejemplo.com" required>
+                        </div>
+                    </div>
+                    <!-- Campo CC -->
+                    <div class="form-group row">
+                        <label for="emailCC" class="col-sm-2 col-form-label font-weight-bold">CC</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="emailCC" placeholder="cc@ejemplo.com">
+                        </div>
+                    </div>
+                    <!-- Campo Asunto -->
+                    <div class="form-group row">
+                        <label for="asuntoCorreo" class="col-sm-2 col-form-label font-weight-bold">Asunto</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="asuntoCorreo" placeholder="Escribe el asunto del correo" required>
+                        </div>
+                    </div>
+                    <!-- Campo Mensaje -->
+                    <div class="form-group">
+                        <label for="mensajeCorreo" class="font-weight-bold">Mensaje</label>
+                        <textarea class="form-control" id="mensajeCorreo" rows="10" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                    </div>
+                    <!-- Adjuntos -->
+                    <div class="form-group">
+                        <label for="adjuntosCorreo" class="font-weight-bold">Adjuntar Archivos</label>
+                        <input type="file" class="form-control-file" id="adjuntosCorreo" multiple>
+                    </div>
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-end">
+                        <button type="reset" class="btn btn-outline-secondary mr-2"><i class="fas fa-undo"></i> Cancelar</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
