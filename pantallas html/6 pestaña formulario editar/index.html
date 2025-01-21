@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketplace Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Editar publicación</h1>
+    <form id="marketplace-form">
+      <div class="image-section">
+        <label for="images">Fotos: <span id="image-count">0/10</span></label>
+        <input type="file" id="images" multiple accept="image/*">
+        <div id="image-preview"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="title">Título</label>
+        <input type="text" id="title" name="title" placeholder="Ejemplo: Roland FP-30X" required>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Precio</label>
+        <input type="number" id="price" name="price" placeholder="Ejemplo: 1150" required>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Categoría</label>
+        <select id="category" name="category" required>
+          <option value="teclados-electronicos">Teclados electrónicos</option>
+          <option value="pianos">Pianos</option>
+          <option value="instrumentos-musicales">Instrumentos musicales</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="status">Estado</label>
+        <select id="status" name="status" required>
+          <option value="nuevo">Nuevo</option>
+          <option value="usado">Usado</option>
+        </select>
+      </div>
+
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const imageInput = document.getElementById('images');
+      const imagePreview = document.getElementById('image-preview');
+      const imageCount = document.getElementById('image-count');
+
+      imageInput.addEventListener('change', () => {
+        const files = imageInput.files;
+        imagePreview.innerHTML = ''; // Limpiar el preview
+        imageCount.textContent = `${files.length}/10`;
+
+        Array.from(files).forEach((file) => {
+          if (files.length > 10) {
+            alert('No puedes subir más de 10 imágenes.');
+            imageInput.value = '';
+            imageCount.textContent = '0/10';
+            return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            imagePreview.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+
+      const form = document.getElementById('marketplace-form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Publicación guardada correctamente');
+        form.reset();
+        imagePreview.innerHTML = '';
+        imageCount.textContent = '0/10';
+      });
+    });
+  </script>
+</body>
+</html>
