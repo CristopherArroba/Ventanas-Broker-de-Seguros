@@ -11,7 +11,7 @@
     <h1>Editar publicación</h1>
     <form id="marketplace-form">
       <div class="image-section">
-        <label for="images">Fotos: <span id="image-count">0/10</span></label>
+        <label for="images">Fotos:</label>
         <input type="file" id="images" multiple accept="image/*">
         <div id="image-preview"></div>
       </div>
@@ -22,24 +22,20 @@
       </div>
 
       <div class="form-group">
-        <label for="price">Precio</label>
-        <input type="number" id="price" name="price" placeholder="Ejemplo: 1150" required>
+        <label for="price-option">Precio</label>
+        <select id="price-option" name="price-option" required>
+          <option value="especificar">Especificar precio</option>
+          <option value="n/a">N/A</option>
+        </select>
+        <input type="number" id="price" name="price" placeholder="Ejemplo: 1150" style="margin-top: 10px; display: block;" required>
       </div>
 
       <div class="form-group">
         <label for="category">Categoría</label>
         <select id="category" name="category" required>
-          <option value="teclados-electronicos">Teclados electrónicos</option>
-          <option value="pianos">Pianos</option>
-          <option value="instrumentos-musicales">Instrumentos musicales</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="status">Estado</label>
-        <select id="status" name="status" required>
-          <option value="nuevo">Nuevo</option>
-          <option value="usado">Usado</option>
+          <option value="noticias">Noticias</option>
+          <option value="productos">Productos</option>
+          <option value="servicios">Servicios</option>
         </select>
       </div>
 
@@ -51,21 +47,27 @@
     document.addEventListener('DOMContentLoaded', () => {
       const imageInput = document.getElementById('images');
       const imagePreview = document.getElementById('image-preview');
-      const imageCount = document.getElementById('image-count');
+      const priceOption = document.getElementById('price-option');
+      const priceInput = document.getElementById('price');
 
+      // Mostrar u ocultar el campo de precio basado en la opción seleccionada
+      priceOption.addEventListener('change', () => {
+        if (priceOption.value === "especificar") {
+          priceInput.style.display = "block";
+          priceInput.required = true;
+        } else {
+          priceInput.style.display = "none";
+          priceInput.required = false;
+          priceInput.value = ''; // Limpiar valor si se selecciona "N/A"
+        }
+      });
+
+      // Previsualización de imágenes
       imageInput.addEventListener('change', () => {
         const files = imageInput.files;
         imagePreview.innerHTML = ''; // Limpiar el preview
-        imageCount.textContent = `${files.length}/10`;
 
         Array.from(files).forEach((file) => {
-          if (files.length > 10) {
-            alert('No puedes subir más de 10 imágenes.');
-            imageInput.value = '';
-            imageCount.textContent = '0/10';
-            return;
-          }
-
           const reader = new FileReader();
           reader.onload = (e) => {
             const img = document.createElement('img');
@@ -76,13 +78,22 @@
         });
       });
 
+      // Manejo del formulario
       const form = document.getElementById('marketplace-form');
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        const priceOptionValue = priceOption.value;
+        const priceValue = priceInput.value;
+
+        if (priceOptionValue === "especificar" && priceValue === "") {
+          alert("Por favor, especifica un precio.");
+          return;
+        }
+
         alert('Publicación guardada correctamente');
         form.reset();
         imagePreview.innerHTML = '';
-        imageCount.textContent = '0/10';
+        priceInput.style.display = "block"; // Resetear estado
       });
     });
   </script>
